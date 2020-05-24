@@ -13,7 +13,7 @@ namespace Cycloid.API.Controllers
     /// The events controller
     /// </summary>
     [RoutePrefix("v1/events")]
-    public class EventsController : ApiController
+    public class EventsController : BaseController
     {
         private readonly IEventsManager _eventsManager;
 

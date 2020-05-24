@@ -52,6 +52,7 @@
     <Compile Include="Managers\IProgramsManager.cs" />
     <Compile Include="Models\Device.cs" />
     <Compile Include="Models\Event.cs" />
+    <Compile Include="Models\Operation.cs" />
     <Compile Include="Repositories\IDevicesRepository.cs" />
     <Compile Include="Models\Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

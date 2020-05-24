@@ -13,7 +13,7 @@ namespace Cycloid.API.Controllers
     /// The channels controller
     /// </summary>
     [RoutePrefix("v1/channels")]
-    public class ChannelsController : ApiController 
+    public class ChannelsController : BaseController 
     {
         private readonly IChannelsManager _channelsManager;
 

@@ -12,7 +12,7 @@ namespace Cycloid.API.Controllers
     /// The program controller
     /// </summary>
     [RoutePrefix("v1/programs")]
-    public class ProgramsController : ApiController
+    public class ProgramsController : BaseController
     {
         private readonly IProgramsManager _programsManager;
 
