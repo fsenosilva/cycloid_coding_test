@@ -4,6 +4,7 @@ using Cycloid.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -16,13 +17,14 @@ namespace Cycloid.API.Controllers
     public class EventsController : BaseController
     {
         private readonly IEventsManager _eventsManager;
-
+        private readonly IDeviceManager _deviceManager;
         /// <summary>
         /// The events controller constructor
         /// </summary>
         /// <param name="eventsManager">The events manager</param>
-        public EventsController(IEventsManager eventsManager)
+        public EventsController(IEventsManager eventsManager, IDeviceManager deviceManager)
         {
+            _deviceManager = deviceManager;
             _eventsManager = eventsManager;
         }
 
@@ -35,9 +37,15 @@ namespace Cycloid.API.Controllers
         [HttpGet]
         [ResponseType(typeof(List<Event>))]
         [Route("{channelId}")]
-        public HttpResponseMessage GetByChannel([FromHeader("session-id")]string sessionId, [FromUri]string channelId)
+        public async Task<HttpResponseMessage> GetByChannel([FromHeader("session-id")]string sessionId, [FromUri]string channelId)
         {
-            throw new NotImplementedException();
+            Operation<string> opDevice = _deviceManager.GetDeviceId(sessionId);
+
+            if (!opDevice.IsValid)
+                return Request.CreateResponse(System.Net.HttpStatusCode.BadRequest, opDevice.ErrorMessages);
+
+            Operation<List<Event>> op = await _eventsManager.GetEventsAsync(opDevice.Payload, channelId);
+            return CreateResponseFromOperation(op);
         }
 
         /// <summary>
@@ -48,9 +56,16 @@ namespace Cycloid.API.Controllers
         [HttpGet]
         [ResponseType(typeof(List<Event>))]
         [Route("now")]
-        public HttpResponseMessage GetPlaying([FromHeader("session-id")]string sessionId)
+        public async Task<HttpResponseMessage> GetPlaying([FromHeader("session-id")]string sessionId)
         {
-            throw new NotImplementedException();
+            Operation<string> opDevice = _deviceManager.GetDeviceId(sessionId);
+            if (!opDevice.IsValid)
+                return Request.CreateResponse(System.Net.HttpStatusCode.BadRequest, opDevice.ErrorMessages);
+
+
+
+            Operation<List<Event>> op = await _eventsManager.GetPlayingEventsAsync(opDevice.Payload);
+            return CreateResponseFromOperation(op);
         }
     }
 }

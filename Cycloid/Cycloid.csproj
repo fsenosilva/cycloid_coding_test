@@ -47,6 +47,8 @@
     <Compile Include="Extensions\EpochExtensions.cs" />
     <Compile Include="Managers\IDeviceManager.cs" />
     <Compile Include="Managers\IEventsManager.cs" />
+    <Compile Include="Managers\Validators\IDeviceValidator.cs" />
+    <Compile Include="Managers\Validators\IProgramsValidator.cs" />
     <Compile Include="Models\Channel.cs" />
     <Compile Include="Managers\IChannelsManager.cs" />
     <Compile Include="Managers\IProgramsManager.cs" />

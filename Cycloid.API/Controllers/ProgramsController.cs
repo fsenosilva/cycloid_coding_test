@@ -3,6 +3,7 @@ using Cycloid.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -33,9 +34,10 @@ namespace Cycloid.API.Controllers
         [HttpGet]
         [ResponseType(typeof(Program))]
         [Route("{id}")]
-        public HttpResponseMessage Get([FromUri]string id)
+        public async Task<HttpResponseMessage> Get([FromUri]string id)
         {
-            throw new NotImplementedException();
+            var op = await _programsManager.GetByIdAsync(id);
+            return CreateResponseFromOperation(op);
         }
 
         /// <summary>
@@ -47,10 +49,11 @@ namespace Cycloid.API.Controllers
         /// <returns>The programs list</returns>
         [HttpGet]
         [ResponseType(typeof(List<Program>))]
-        [Route("{channelId}")]
-        public HttpResponseMessage GetByChannel([FromUri]string channelId, [FromUri]int skip = 0, [FromUri]int take = 10)
+        [Route("Channel/{channelId}")]
+        public async Task<HttpResponseMessage> GetByChannel([FromUri]string channelId, [FromUri]int skip = 0, [FromUri]int take = 10)
         {
-            throw new NotImplementedException();
+            var op = await _programsManager.GetByChannel(channelId, skip, take);
+            return CreateResponseFromOperation(op);
         }
     }
 }

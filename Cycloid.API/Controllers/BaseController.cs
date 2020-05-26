@@ -7,12 +7,14 @@ using System.Net;
 using System.Net.Http;
 using System.Web;
 using System.Web.Http;
+using System.Web.Http.Description;
 
 namespace Cycloid.API.Controllers
 {
-
+    
     public class BaseController : ApiController
     {
+        [ApiExplorerSettings(IgnoreApi = true)]
         public HttpResponseMessage CreateResponseFromOperation<T>(Operation<T> operation) where T: class
         {
             if (!operation.IsValid)

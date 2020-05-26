@@ -24,5 +24,11 @@ namespace Cycloid.Models
         /// </summary>
         [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "position")]
         public int Position { get; set; }
+
+        /// <summary>
+        /// The category
+        /// </summary>
+        [JsonProperty(NullValueHandling = NullValueHandling.Ignore, PropertyName = "category")]
+        public string Category { get; set; }
     }
 }

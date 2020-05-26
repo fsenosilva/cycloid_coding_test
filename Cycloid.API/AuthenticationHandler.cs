@@ -1,4 +1,6 @@
-﻿using System.Net.Http;
+﻿using Cycloid.Common.ParameterBinding;
+using System.Collections.ObjectModel;
+using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -20,7 +22,7 @@ namespace Cycloid.API
         /// <param name="request">The request</param>
         /// <param name="cancellationToken">The cancellation token</param>
         protected override async Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
-        {
+        {      
             return await base.SendAsync(request, cancellationToken).ContinueWith(task =>
             {
                 return task.Result;

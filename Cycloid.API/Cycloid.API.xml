@@ -514,7 +514,7 @@
             The channels controller
             </summary>
         </member>
-        <member name="M:Cycloid.API.Controllers.ChannelsController.#ctor(Cycloid.Managers.IChannelsManager)">
+        <member name="M:Cycloid.API.Controllers.ChannelsController.#ctor(Cycloid.Managers.IChannelsManager,Cycloid.Managers.IDeviceManager)">
             <summary>
             The channels controller constructor
             </summary>
@@ -538,7 +538,7 @@
             The events controller
             </summary>
         </member>
-        <member name="M:Cycloid.API.Controllers.EventsController.#ctor(Cycloid.Managers.IEventsManager)">
+        <member name="M:Cycloid.API.Controllers.EventsController.#ctor(Cycloid.Managers.IEventsManager,Cycloid.Managers.IDeviceManager)">
             <summary>
             The events controller constructor
             </summary>

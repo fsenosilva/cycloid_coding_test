@@ -1,7 +1,9 @@
-﻿namespace Cycloid.Managers
+﻿using Cycloid.Models;
+
+namespace Cycloid.Managers
 {
     public interface IDeviceManager
     {
-        string GetDeviceId(string sessionId);
+        Operation<string> GetDeviceId(string sessionId);
     }
 }

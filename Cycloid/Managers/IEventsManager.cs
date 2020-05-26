@@ -14,7 +14,7 @@ namespace Cycloid.Managers
         /// <param name="channelId">The channel id</param>
         /// <param name="ct">(optional) The cancellation token</param>
         /// <returns>The events</returns>
-        Task<List<Event>> GetEventsAsync(string deviceId, string channelId, CancellationToken ct = default(CancellationToken));
+        Task<Operation<List<Event>>> GetEventsAsync(string deviceId, string channelId, CancellationToken ct = default(CancellationToken));
 
         /// <summary>
         /// Gets all events playing at the moment
@@ -22,6 +22,6 @@ namespace Cycloid.Managers
         /// <param name="deviceId">The device id</param>
         /// <param name="ct">(optional) The cancellation token</param>
         /// <returns></returns>
-        Task<List<Event>> GetPlayingEventsAsync(string deviceId, CancellationToken ct = default(CancellationToken));
+        Task<Operation<List<Event>>> GetPlayingEventsAsync(string deviceId, CancellationToken ct = default(CancellationToken));
     }
 }

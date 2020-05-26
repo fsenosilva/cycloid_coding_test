@@ -29,6 +29,8 @@ namespace Cycloid.API
 
             var container = new UnityContainer();
 
+            UnityRegister.RegisterAll(container);
+
             config.DependencyResolver = new UnityResolver(container);
             
             config.MessageHandlers.Add(new AuthenticationHandler());

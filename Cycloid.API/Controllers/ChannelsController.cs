@@ -4,6 +4,7 @@ using Cycloid.Models;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading.Tasks;
 using System.Web.Http;
 using System.Web.Http.Description;
 
@@ -16,14 +17,16 @@ namespace Cycloid.API.Controllers
     public class ChannelsController : BaseController 
     {
         private readonly IChannelsManager _channelsManager;
+        private readonly IDeviceManager _deviceManager;
 
         /// <summary>
         /// The channels controller constructor
         /// </summary>
         /// <param name="channelsManager">The channels manager</param>
-        public ChannelsController(IChannelsManager channelsManager)
+        public ChannelsController(IChannelsManager channelsManager, IDeviceManager deviceManager)
         {
             _channelsManager = channelsManager;
+            _deviceManager = deviceManager;
         }
 
         /// <summary>
@@ -33,9 +36,10 @@ namespace Cycloid.API.Controllers
         [HttpGet]
         [ResponseType(typeof(List<Channel>))]
         [Route("")]
-        public HttpResponseMessage Get()
+        public async Task<HttpResponseMessage> Get()
         {
-            throw new NotImplementedException();
+            Operation<List<Channel>> op = await _channelsManager.GetAll();
+            return CreateResponseFromOperation(op);
         }
 
         /// <summary>
@@ -46,9 +50,16 @@ namespace Cycloid.API.Controllers
         [HttpGet]
         [ResponseType(typeof(List<Channel>))]
         [Route("subscribed")]
-        public HttpResponseMessage GetSubscribedChannels([FromHeader("session-id")]string sessionId)
+        public async Task<HttpResponseMessage> GetSubscribedChannels([FromHeader("session-id")]string sessionId)
         {
-            throw new NotImplementedException();
+            Operation<string> opDevice = _deviceManager.GetDeviceId(sessionId);
+
+            if (!opDevice.IsValid)
+                return Request.CreateResponse(System.Net.HttpStatusCode.BadRequest, opDevice.ErrorMessages);
+
+
+            Operation<List<Channel>> op = await _channelsManager.GetSubscribedChannels(opDevice.Payload);
+            return CreateResponseFromOperation(op);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using Cycloid.Managers;
+using Cycloid.Managers.Validators;
+using Cycloid.Repositories;
 using Cycloid.Services;
 using System;
 using System.Collections.Generic;
@@ -25,7 +27,12 @@ namespace Cycloid.API
             #endregion
 
             #region Repositories
-            container.RegisterType<IDeviceManager, DeviceManager>();
+            container.RegisterType<IDevicesRepository, DevicesRepository>();
+            #endregion
+
+            #region Validators
+            container.RegisterType<IProgramsValidator, ProgramsValidator>();
+            container.RegisterType<IDeviceValidator, DeviceValidator>();
             #endregion
         }
     }
